@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Conversation } from "src/conversation/entities/conversation.entity";
+import { Friendship } from "src/friendship/entities/friendship.entity";
+import { Column, Entity, JoinColumn, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -17,5 +19,11 @@ export class User {
     @Column()
     createdAt: Date
 
+    @ManyToMany(() => Conversation, conversation => conversation.id)
+    @JoinColumn({ name: 'id'})
+    conversations: Conversation
 
+    @ManyToMany(() => Friendship, friendship => friendship.id)
+    @JoinColumn({ name: 'id'})
+    friendships: Friendship
 }

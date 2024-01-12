@@ -1,15 +1,17 @@
 import { User } from "src/user/entities/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Friendship {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @ManyToOne(() => User, user => user.id)
+    @ManyToMany(() => User, user => user.id)
+    @JoinColumn({ name: 'id'})
     firstFriend: User
     
-    @ManyToOne(() => User, user => user.id)
+    @ManyToMany(() => User, user => user.id)
+    @JoinColumn({ name: 'id'})
     secondFriend: User
 
     @Column()
